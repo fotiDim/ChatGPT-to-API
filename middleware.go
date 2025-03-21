@@ -16,6 +16,30 @@ func init() {
 	if ADMIN_PASSWORD == "" {
 		ADMIN_PASSWORD = "TotallySecurePassword"
 	}
+
+	API_KEYS = make(map[string]bool)
+
+	// Read API keys from environment variable
+	if envAPIKeys := os.Getenv("API_KEYS"); envAPIKeys != "" {
+		for _, key := range strings.Split(envAPIKeys, ",") {
+			if key != "" {
+				API_KEYS["Bearer "+strings.TrimSpace(key)] = true
+			}
+		}
+	}
+
+	// Read API keys from file (existing functionality)
+	if _, err := os.Stat("api_keys.txt"); err == nil {
+		file, _ := os.Open("api_keys.txt")
+		defer file.Close()
+		scanner := bufio.NewScanner(file)
+		for scanner.Scan() {
+			key := scanner.Text()
+			if key != "" {
+				API_KEYS["Bearer "+key] = true
+			}
+		}
+	}
 }
 
 func adminCheck(c *gin.Context) {
@@ -36,20 +60,6 @@ func cors(c *gin.Context) {
 }
 
 func Authorization(c *gin.Context) {
-	if API_KEYS == nil {
-		API_KEYS = make(map[string]bool)
-		if _, err := os.Stat("api_keys.txt"); err == nil {
-			file, _ := os.Open("api_keys.txt")
-			defer file.Close()
-			scanner := bufio.NewScanner(file)
-			for scanner.Scan() {
-				key := scanner.Text()
-				if key != "" {
-					API_KEYS["Bearer "+key] = true
-				}
-			}
-		}
-	}
 	if len(API_KEYS) != 0 && !API_KEYS[c.Request.Header.Get("Authorization")] {
 		if c.Request.Header.Get("Authorization") == "" {
 			c.JSON(401, gin.H{"error": "No API key provided. Please provide an API key as part of the Authorization header."})

@@ -15,7 +15,7 @@ After 2024-04-02, authentication is optional because there is no need for authen
 
 You have 2 ways to set credentials:
 
-#### Credentials from accounts.txt
+#### from file
 
 Access token and PUID(only for PLUS account) retrieval has been automated by [OpenAIAuth](https://github.com/xqdoo00o/OpenAIAuth/) with account email & password.
 
@@ -27,7 +27,7 @@ email:password
 ...
 ```
 
-#### Credentials from environment variables
+#### from environment
 
 Alternatively, set `OPENAI_ACCOUNTS="user1|pass1,user2|pass2,user3|pass3"` environment variable.`
 
@@ -51,6 +51,8 @@ Currently logged in account, using the GPT-4 model and most GPT-3.5 models, you 
 
 ### API Authentication (Optional)
 
+#### from file
+
 Custom API keys for this fake API, just like OpenAI api
 
 `api_keys.txt` - A list of API keys separated by new line
@@ -61,6 +63,10 @@ sk-123456
 88888888
 ...
 ```
+
+#### from environment
+
+Set the `API_KEYS="sk-123456,88888888"` environment variable.
 
 ## Getting set up
 ```  
@@ -75,7 +81,7 @@ go build
   - `SERVER_PORT` - Set to 8080 by default
   - `ENABLE_HISTORY` - Set to false by default
   - `OPENAI_ACCOUNTS` - The accounts you use for OpenAI
-
+  - `API_KEYS` - The API keys for clients to authenticate against your own API
 ### Files (Optional)
   - `proxies.txt` - A list of proxies separated by new line
 
