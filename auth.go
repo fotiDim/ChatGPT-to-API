@@ -84,16 +84,21 @@ func getSecret() (string, tokens.Secret) {
 	}
 }
 
-// Read accounts.txt and create a list of accounts
+// Read accounts and create a list of them
 func readAccounts() {
-	accounts = map[string]AccountInfo{}
+    accounts = map[string]AccountInfo{}
 
-	// Add environment variable check
-    if user := os.Getenv("OPENAI_EMAIL"); user != "" {
-        pass := os.Getenv("OPENAI_PASSWORD")
-        accounts[user] = AccountInfo{
-            Password: pass,
-            Times:    []int{1}, // Default usage time
+    // Read from environment variable
+    if envAccounts := os.Getenv("OPENAI_ACCOUNTS"); envAccounts != "" {
+        for _, account := range strings.Split(envAccounts, ",") {
+            parts := strings.Split(account, "|")
+            if len(parts) == 2 {
+                username, password := parts[0], parts[1]
+                accounts[username] = AccountInfo{
+                    Password: password,
+                    Times:    []int{1}, // Default usage time
+                }
+            }
         }
     }
 	

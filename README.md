@@ -29,7 +29,7 @@ email:password
 
 #### Credentials from environment variables
 
-Alternatively, set `OPENAI_EMAIL` and `OPENAI_PASSWORD` environment variables.
+Alternatively, set `OPENAI_ACCOUNTS="user1|pass1,user2|pass2,user3|pass3"` environment variable.`
 
 ---
 
@@ -74,8 +74,7 @@ go build
   - `SERVER_HOST` - Set to 127.0.0.1 by default
   - `SERVER_PORT` - Set to 8080 by default
   - `ENABLE_HISTORY` - Set to false by default
-  - `OPENAI_EMAIL` - The email you use for your account
-  - `OPENAI_PASSWORD` - The password you use for your account
+  - `OPENAI_ACCOUNTS` - The accounts you use for OpenAI
 
 ### Files (Optional)
   - `proxies.txt` - A list of proxies separated by new line
