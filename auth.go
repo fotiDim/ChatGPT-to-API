@@ -87,6 +87,16 @@ func getSecret() (string, tokens.Secret) {
 // Read accounts.txt and create a list of accounts
 func readAccounts() {
 	accounts = map[string]AccountInfo{}
+
+	// Add environment variable check
+    if user := os.Getenv("OPENAI_EMAIL"); user != "" {
+        pass := os.Getenv("OPENAI_PASSWORD")
+        accounts[user] = AccountInfo{
+            Password: pass,
+            Times:    []int{1}, // Default usage time
+        }
+    }
+	
 	// Read accounts.txt and create a list of accounts
 	if _, err := os.Stat("accounts.txt"); err == nil {
 		// Each line is a proxy, put in proxies array

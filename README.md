@@ -11,7 +11,11 @@ Create a fake API using ChatGPT's website
     
 ### Authentication
 
-#### After 2024-04-02, accouts.txt is optional because no need authentication for gpt-3.5.
+After 2024-04-02, authentication is optional because there is no need for authentication for gpt-3.5.
+
+You have 2 ways to set credentials:
+
+#### Credentials from accounts.txt
 
 Access token and PUID(only for PLUS account) retrieval has been automated by [OpenAIAuth](https://github.com/xqdoo00o/OpenAIAuth/) with account email & password.
 
@@ -23,11 +27,17 @@ email:password
 ...
 ```
 
-All authenticated access tokens and PUID will store in `access_tokens.json`
+#### Credentials from environment variables
 
-Auto renew access tokens and PUID after 1 day
+Alternatively, set `OPENAI_EMAIL` and `OPENAI_PASSWORD` environment variables.
 
-Caution! please use unblocked ip for authentication, first login to `https://chatgpt.com/` to check ip availability if you can.
+---
+
+All authenticated access tokens and PUID will be stored in `access_tokens.json` and auto-renewed after 24 hours.
+
+Caution! please use unblocked IP for authentication. First login to `https://chatgpt.com/` to check IP availability if you can.
+
+---
 
 ### HAR file pool
 
@@ -64,6 +74,8 @@ go build
   - `SERVER_HOST` - Set to 127.0.0.1 by default
   - `SERVER_PORT` - Set to 8080 by default
   - `ENABLE_HISTORY` - Set to false by default
+  - `OPENAI_EMAIL` - The email you use for your account
+  - `OPENAI_PASSWORD` - The password you use for your account
 
 ### Files (Optional)
   - `proxies.txt` - A list of proxies separated by new line
