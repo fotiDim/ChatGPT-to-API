@@ -29,7 +29,7 @@ email:password
 
 #### from environment
 
-Alternatively, set `OPENAI_ACCOUNTS="user1|pass1,user2|pass2,user3|pass3"` environment variable.`
+Alternatively, set `OPENAI_ACCOUNTS="user1:pass1;user2:pass2;user3:pass3"` environment variable.`
 
 ---
 

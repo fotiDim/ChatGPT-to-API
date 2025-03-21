@@ -91,7 +91,7 @@ func readAccounts() {
     // Read from environment variable
     if envAccounts := os.Getenv("OPENAI_ACCOUNTS"); envAccounts != "" {
         for _, account := range strings.Split(envAccounts, ",") {
-            parts := strings.Split(account, "|")
+            parts := strings.Split(account, ":")
             if len(parts) == 2 {
                 username, password := parts[0], parts[1]
                 accounts[username] = AccountInfo{
